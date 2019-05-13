@@ -43,7 +43,7 @@ Or build the image with only Enterprise Edition:
 
 You can use the provided docker-compose.yml files as a starting point, but it should be adapted to your Docker infrastructure.
 
-### Start
+### Start Odoo and PostgreSQL
 
     docker-compose -p myproject up -d
 
@@ -62,21 +62,21 @@ script of the PostgreSQL docker image. Otherwise you can do:
 
     docker-compose -p myproject exec --user postgres postgresql createdb -O odoo odoo
 
-### drop db
+### Drop db
 
     docker-compose -p myproject exec --user postgres postgresql dropdb odoo
 
-### restore db
+### Restore db
 
     docker cp backup.dump myproject_postgresql_1:/tmp/
     docker-compose -p myproject exec --user postgres postgresql pg_restore --role odoo -O -Fc -d odoo /tmp/<dumpfile>
     docker-compose -p myproject exec postgresql rm /tmp/<dumpfile>
 
-### update all
+### Update all
 
     docker-compose -p myproject run --rm odoo -u all --stop-after-init
 
-### reset password
+### Reset password
 
     docker-compose -p myproject exec --user postgres postgresql psql odoo -c "update res_users set password='admin' where login='admin';"
 
