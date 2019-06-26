@@ -4,11 +4,10 @@ Set of docker images and some sample docker-compose files for Odoo.
 
 Directories layout:
 
-    ├── 12.0 : version number of Odoo
-    │   ├── odoo : docker image for Odoo Community
-    │   ├── odoo-ee : docker image for Enterprise Edition
-    │   ├── odoo-oca : docker image with additional OCA modules
-    │   └── postgresql : docker image for PostgreSQL with an init script
+    ├── odoo :       docker image for **Odoo** (Community)
+    ├── odoo-ee :    docker image for **Odoo EE**
+    ├── odoo-oca :   docker image for **Odoo + OCA modules**
+    ├── postgresql : docker image for **PostgreSQL with an init script**
 
 
 ## Build the docker images
@@ -20,7 +19,7 @@ First checkout this repository:
 
 Choose the version you want:
 
-    cd 12.0
+    git checkout 12.0
 
 Build the PostgreSQL image:
 
