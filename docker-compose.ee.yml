@@ -1,14 +1,15 @@
-version: '2.1'
+version: '3.7'
+
 services:
   odoo:
     image: ccomb/odoo-ee:12.0
     restart: unless-stopped
+    depends_on:
+      - postgresql
     volumes:
       - conf:/etc/odoo
       - data_dir:/var/lib/odoo
       - pgsocket:/var/run/postgresql
-#    networks:
-#      - caddy_default
     ports:
       - "8069"
       - "8072"
@@ -23,13 +24,6 @@ services:
 
 volumes:
   conf:
-#    driver: anybox/buttervolume:latest
   data_dir:
-#    driver: anybox/buttervolume:latest
   postgres:
-#    driver: anybox/buttervolume:latest
   pgsocket:
-
-#networks:
-#  caddy_default:
-#    external: true

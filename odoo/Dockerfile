@@ -1,85 +1,112 @@
 FROM debian:stretch
-MAINTAINER Anybox
+LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
+
 COPY sources.list /etc/apt/
 
+# Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
-ENV COMMIT 12.0
-ENV SUDO_FORCE_REMOVE yes
+
 RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         adduser \
         ca-certificates \
         curl \
+        dirmngr \
+        fonts-noto-cjk \
+        # for geoip OCA modules:
         geoip-bin \
-# unavailable #       geoip-database-contrib \
+        # unavailable:
+        #geoip-database-contrib \
+        gnupg \
         libssl1.0-dev \
         lsb-base \
         node-clean-css \
         node-less \
-        postgresql-client \
-        python3-babel \
-        python3-dateutil \
-        python3-decorator \
-        python3-docutils \
-        python3-feedparser \
-        python3-gevent \
-        python3-html2text \
-        python3-jinja2 \
-        python3-libsass \
-        python3-lxml \
-        python3-mako \
-        python3-mock \
-        python3-passlib \
-        python3-pil \
         python3-pip \
-        python3-psutil \
-        python3-psycopg2 \
-        python3-pydot \
         python3-pyldap \
-        python3-pyparsing \
-        python3-pypdf2 \
         python3-qrcode \
         python3-renderpm \
-        python3-reportlab \
-        python3-requests \
         python3-setuptools \
-        python3-suds \
-        python3-tz \
-        python3-vatnumber \
         python3-vobject \
-        python3-werkzeug \
-        python3-xlsxwriter \
-        python3-yaml \
+        python3-watchdog \
         xz-utils \
-        unzip \
-    && curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-    && tar xvf wkhtmltox.tar.xz \
-    && cp wkhtmltox/lib/* /usr/local/lib/ \
-    && cp wkhtmltox/bin/* /usr/local/bin/ \
-    && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/ \
-    && rm -rf wkhtmltox
+    && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+    && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
+    && dpkg --force-depends -i wkhtmltox.deb \
+    && apt-get -y install -f --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
-RUN cd /srv && curl -o odoo.zip -SL https://github.com/odoo/odoo/archive/${COMMIT}.zip \
-    && unzip odoo.zip && rm odoo.zip && mv odoo-${COMMIT} odoo \
+# install latest postgresql-client
+RUN set -x; \
+        echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
+        && export GNUPGHOME="$(mktemp -d)" \
+        && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
+        && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
+        && gpg --armor --export "${repokey}" | apt-key add - \
+        && gpgconf --kill all \
+        && rm -rf "$GNUPGHOME" \
+        && apt-get update  \
+        && apt-get install -y postgresql-client \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install rtlcss (on Debian stretch)
+RUN set -x;\
+    echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && repokey='9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280' \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
+    && gpg --armor --export "${repokey}" | apt-key add - \
+    && gpgconf --kill all \
+    && rm -rf "$GNUPGHOME" \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && npm install --no-save -g rtlcss \
+    && rm -rf /var/lib/apt/lists/*
+
+# install Odoo
+ENV VERSION 12.0
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        libldap2-dev \ 
+        libpq-dev \
+        libsasl2-dev \
+        python3-dev \
+        unzip \
+    && cd /srv \
+    && curl -o odoo.zip -SL https://github.com/odoo/odoo/archive/${VERSION}.zip \
+    && unzip odoo.zip \
+    && rm odoo.zip \
+    && mv odoo-${VERSION} odoo \
+    && python3 -m pip install --no-cache-dir --upgrade pip \
+    && pip3 install --no-cache-dir simplejson num2words xlwt unicodecsv \
+    && pip3 install --no-cache-dir -e odoo/ \
+    && pip3 install --no-cache-dir -r odoo/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+        build-essential \
+        libldap2-dev \ 
+        libpq-dev \
+        libsasl2-dev \
+        python3-dev \
         sudo \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && pip3 install \
-        simplejson==3.13.2 \
-        unicodecsv==0.14.1
+    && adduser --system --quiet odoo
 
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
-RUN adduser --system --quiet odoo
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons /var/lib/odoo \
-        && chown -R odoo: /var/lib/odoo
-VOLUME ["/var/lib/odoo", "/etc/odoo"]
+RUN mkdir -p /mnt/extra-addons /mnt/custom-addons /var/lib/odoo \
+        && chown -R odoo: /mnt/extra-addons /mnt/custom-addons /var/lib/odoo
 COPY ./odoo.conf /etc/odoo/
+RUN chown odoo /etc/odoo/odoo.conf
+VOLUME ["/var/lib/odoo", "/etc/odoo"]
+
+# Expose Odoo services
+EXPOSE 8069 8071
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
