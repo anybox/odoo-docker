@@ -6,8 +6,8 @@ USER root
 RUN set -x; \
         apt-get update \
         && apt-get install -y --no-install-recommends git \
-        && mkdir -p /mnt/repositories /mnt/custom-addons \
-        && cd /mnt/repositories \
+        && mkdir -p /srv/repositories /srv/custom-addons \
+        && cd /srv/repositories \
 #
         ### DOWNLOAD MODULES
         && git clone --depth 1 -b 12.0 https://github.com/OCA/web \

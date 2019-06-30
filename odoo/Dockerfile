@@ -3,13 +3,12 @@ LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION 12.0
 
-COPY sources.list /etc/apt/
-
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
 RUN set -x; \
-    echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
+    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
     && echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends dirmngr gnupg \
@@ -81,15 +80,15 @@ RUN set -x; \
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 
-# Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons /mnt/custom-addons /var/lib/odoo \
-        && chown -R odoo: /mnt/extra-addons /mnt/custom-addons /var/lib/odoo
+# Mount /var/lib/odoo to allow restoring filestore and /srv/extra-addons for users addons
+RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
+        && chown -R odoo: /srv/extra-addons /srv/custom-addons /var/lib/odoo
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
 VOLUME ["/var/lib/odoo", "/etc/odoo"]
 
 # Expose Odoo services
-EXPOSE 8069 8071
+EXPOSE 8069 8072
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
