@@ -21,7 +21,7 @@ init: ## Bootstrap your application. e.g. fetch some data files, make some API c
 test: ## Shortcut to launch all the test tasks (unit, functional and integration).
 	docker-compose up -d db
 	docker-compose exec -T -u postgres db sh -c "while ! psql -U odoo -d odoo -c 'select 1' ; do echo 'Waiting pgsql init...'; sleep 1; done;"
-	docker-compose run --rm odoo /srv/odoo/odoo-bin -c -d odoo --test-enable --stop-after-init 2>&1 | tee test.log
+	docker-compose run --rm odoo /srv/odoo/odoo-bin -d odoo --test-enable --stop-after-init 2>&1 | tee test.log
 	docker-compose down
 
 #test-unit: ## Launch unit tests. e.g. pytest, jest (js), phpunit, JUnit (java) etc ...
