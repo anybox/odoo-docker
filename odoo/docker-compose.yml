@@ -7,7 +7,6 @@ services:
       - db
     volumes:
       - odoodata:/var/lib/odoo
-      - odooconf:/etc/odoo
       - pgsocket:/var/run/postgresql
     ports:
       - "8069:8069"
@@ -20,7 +19,6 @@ services:
       - pgsocket:/var/run/postgresql
       - pgdata:/var/lib/postgresql/data
 volumes:
-  odooconf:
   odoodata:
   pgdata:
   pgsocket:

@@ -85,7 +85,7 @@ RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
         && chown -R odoo: /srv/extra-addons /srv/custom-addons /var/lib/odoo
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
-VOLUME ["/var/lib/odoo", "/etc/odoo"]
+VOLUME ["/var/lib/odoo"]
 
 # Expose Odoo services
 EXPOSE 8069 8072
