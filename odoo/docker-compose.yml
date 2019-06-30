@@ -14,7 +14,7 @@ services:
     command: /srv/odoo/odoo-bin -i base
 
   db:
-    image: postgres:11
+    build: ../postgresql
     volumes:
       - pgsocket:/var/run/postgresql
       - pgdata:/var/lib/postgresql/data
