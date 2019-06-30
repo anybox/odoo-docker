@@ -1,6 +1,6 @@
 variables:
   IMAGE: "$CI_REGISTRY_IMAGE"
-  COMMIT_TAG: "$CI_COMMIT_REF_NAME:latest"
+  COMMIT_TAG: "latest"
   COMPOSE_FILE_TESTS: docker-compose-tests.yml
 
 services:
