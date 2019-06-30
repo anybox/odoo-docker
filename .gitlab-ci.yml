@@ -1,5 +1,5 @@
 variables:
-  IMAGE: "odoo" # dont' name it odoo-docker
+  IMAGE: "$CI_REGISTRY_IMAGE"
   COMMIT_TAG: "$CI_COMMIT_REF_NAME-dev"
   COMPOSE_FILE_TESTS: docker-compose-tests.yml
 
