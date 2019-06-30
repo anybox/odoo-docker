@@ -7,10 +7,7 @@ ENV VERSION 12.0
 ENV LANG C.UTF-8
 
 RUN set -x; \
-    sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
-    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
-    && echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > etc/apt/sources.list.d/pgdg.list \
-    && apt-get update \
+    apt-get update \
     && apt-get install -y --no-install-recommends dirmngr gnupg \
         && export GNUPGHOME="$(mktemp -d)" \
         && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
@@ -21,6 +18,9 @@ RUN set -x; \
     && gpg --armor --export "${repokey}" | apt-key add - \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
+    && sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
+    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         adduser \
