@@ -19,7 +19,7 @@ build:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - export BUILD_DT=`date -Iseconds`
-    - docker build --pull --cache-from $IMAGE --build-arg REVISION=$CI_COMMIT_SHA --build-arg VERSION=$CI_COMMIT_TAG --build-arg BUILD_DATETIME=$BUILD_DT --build-arg IMAGE=$IMAGE -t "$IMAGE:$COMMIT_TAG" odoo
+    - docker build --pull --cache-from $IMAGE:$COMMIT_TAG --build-arg REVISION=$CI_COMMIT_SHA --build-arg VERSION=$CI_COMMIT_TAG --build-arg BUILD_DATETIME=$BUILD_DT --build-arg IMAGE=$IMAGE -t "$IMAGE:$COMMIT_TAG" odoo
     - docker push "$IMAGE:$COMMIT_TAG"
 
 test:
