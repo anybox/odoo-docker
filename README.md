@@ -7,7 +7,6 @@ Directories layout:
     ├── odoo :       docker image for **Odoo** (Community)
     ├── odoo-ee :    docker image for **Odoo EE**
     ├── odoo-oca :   docker image for **Odoo + OCA modules**
-    ├── postgresql : docker image for **PostgreSQL with an init script**
 
 
 ## Build the docker images
@@ -21,61 +20,54 @@ Choose the version you want:
 
     git checkout 12.0
 
-Build the PostgreSQL image:
+Read the help of the available commands
 
-    docker build -t postgresql:odoo12 postgresql
+    make help
 
 Build the base Odoo image:
 
-    docker build -t anybox/odoo:12.0 odoo
+    cd odoo
+    make build
 
 Either build the image with additional OCA modules:
 
-    docker build -t anybox/odoo-oca:12.0 odoo-oca
+    cd odoo-oca
+    make build
 
 Or build the image with only Enterprise Edition:
 
-    docker build -t anybox/odoo-ee:12.0 odoo-ee
+    cd odoo-ee
+    make build
 
-
-## Run and manage Odoo with docker-compose
-
-You can use the provided docker-compose.yml files as a starting point, but it should be adapted to your Docker infrastructure.
 
 ### Start Odoo and PostgreSQL
 
-    docker-compose -p myproject up -d
+    make init
+    make run
 
 Then open on a browser on your local machine:
 
-    firefox `docker-compose -p myproject port odoo 8069`
+    firefox http://localhost:8069
 
 ### Stop Odoo
 
-    docker-compose -p myproject stop odoo
+    make stop
 
-### Create DB
+### Destroy the application and all data
 
-The database should already be created on first start, thanks to the init
-script of the PostgreSQL docker image. Otherwise you can do:
-
-    docker-compose -p myproject exec --user postgres postgresql createdb -O odoo odoo
-
-### Drop db
-
-    docker-compose -p myproject exec --user postgres postgresql dropdb odoo
+    make destroy
 
 ### Restore db
 
-    docker cp backup.dump myproject_postgresql_1:/tmp/
-    docker-compose -p myproject exec --user postgres postgresql pg_restore --role odoo -O -Fc -d odoo /tmp/<dumpfile>
-    docker-compose -p myproject exec postgresql rm /tmp/<dumpfile>
+    docker cp backup.dump odoo_db_1:/tmp/
+    docker-compose exec --user db postgresql pg_restore --role odoo -O -Fc -d odoo /tmp/<dumpfile>
+    docker-compose exec postgresql rm /tmp/<dumpfile>
 
 ### Update all
 
-    docker-compose -p myproject run --rm odoo -u all --stop-after-init
+    docker-compose run --rm odoo -u all --stop-after-init
 
 ### Reset password
 
-    docker-compose -p myproject exec --user postgres postgresql psql odoo -c "update res_users set password='admin' where login='admin';"
+    docker-compose exec --user db postgresql psql odoo -c "update res_users set password='admin' where login='admin';"
 
