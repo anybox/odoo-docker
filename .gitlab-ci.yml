@@ -18,9 +18,10 @@ build:
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker build --pull --cache-from $IMAGE:$COMMIT_TAG-postgresql -t "$IMAGE:odoo-$COMMIT_TAG" postgresql
-    - docker build --pull --cache-from $IMAGE:$COMMIT_TAG-odoo -t "$IMAGE:odoo-$COMMIT_TAG" odoo
-    - docker push "$IMAGE:$COMMIT_TAG"
+    - docker build --pull --cache-from $IMAGE:$COMMIT_TAG-postgresql -t "$IMAGE:odoo-$COMMIT_TAG-postgresql" postgresql
+    - docker build --pull --cache-from $IMAGE:$COMMIT_TAG-odoo -t "$IMAGE:odoo-$COMMIT_TAG-odoo" odoo
+    - docker push "$IMAGE:$COMMIT_TAG-postgresql"
+    - docker push "$IMAGE:$COMMIT_TAG-odoo"
 
 test:
   stage: test
