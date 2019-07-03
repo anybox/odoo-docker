@@ -18,10 +18,10 @@ build:
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker build --cache-from registry.anybox.cloud/$IMAGE:$COMMIT_TAG-postgresql -t "$IMAGE:$COMMIT_TAG-postgresql" postgresql
-    - docker build --cache-from registry.anybox.cloud/$IMAGE:$COMMIT_TAG-odoo -t "$IMAGE:$COMMIT_TAG-odoo" odoo
-    - docker push "$IMAGE:$COMMIT_TAG-postgresql"
-    - docker push "$IMAGE:$COMMIT_TAG-odoo"
+    - docker build --cache-from registry.anybox.cloud/$IMAGE/postgresql:11 -t registry.anybox.cloud/$IMAGE/postgresql:11 postgresql
+    - docker build --cache-from registry.anybox.cloud/$IMAGE/odoo:$COMMIT_TAG -t registry.anybox.cloud/$IMAGE/odoo:$COMMIT_TAG odoo
+    - docker push registry.anybox.cloud/$IMAGE/postgresql:11
+    - docker push registry.anybox.cloud/$IMAGE/odoo:$COMMIT_TAG
 
 test:
   stage: test
