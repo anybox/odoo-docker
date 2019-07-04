@@ -18,7 +18,7 @@ RUN set -x; \
         ; do curl -SL https://github.com/$repo/archive/12.0.zip \
             && unzip 12.0.zip \
             && mv -f ${repo#*/}-12.0/* . \
-            && rmdir ${repo#*/}-12.0 \
+            && rm -rf ${repo#*/}-12.0 \
         ; done \
         && rm -rf setup .gitignore README.md .travis.yml *zip
             
