@@ -17,10 +17,11 @@ RUN set -x; \
             OCA/partner-contact \
         ; do curl -o 12.0.zip -sSL https://github.com/$repo/archive/12.0.zip \
             && unzip 12.0.zip \
+            && rm -rf ${repo#*/}-12.0/setup \
             && mv -f ${repo#*/}-12.0/* . \
             && rm -rf ${repo#*/}-12.0 \
         ; done \
-        && rm -rf setup .gitignore README.md .travis.yml *zip
+        && rm -rf .gitignore README.md .travis.yml *zip
             
             
 VOLUME /var/lib/odoo
