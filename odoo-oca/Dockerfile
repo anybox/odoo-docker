@@ -1,4 +1,4 @@
-FROM anybox/odoo:12.0
+FROM anybox/odoo-docker/odoo:12.0
 MAINTAINER Anybox
 
 RUN set -x; \
