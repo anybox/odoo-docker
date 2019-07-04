@@ -1,42 +1,27 @@
 FROM anybox/odoo:12.0
 MAINTAINER Anybox
 
-USER root
-
 RUN set -x; \
-        apt-get update \
-        && apt-get install -y --no-install-recommends git \
-        && mkdir -p /srv/repositories /srv/custom-addons \
-        && cd /srv/repositories \
+        cd /srv/extra-addons \
 #
         ### DOWNLOAD MODULES
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/web \
-        && ln -srf web/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/server-brand \
-        && ln -srf server-brand/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/server-tools \
-        && ln -srf server-tools/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/Openworx/backend_theme \
-        && ln -srf backend_theme/backend_theme_v12 ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/website \
-        && ln -srf website/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/contract \
-        && ln -srf contract/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/project \
-        && ln -srf project/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/l10n-france \
-        && ln -srf l10n-france/* ../extra-addons/ \
-#
-        && git clone --depth 1 -b 12.0 https://github.com/OCA/partner-contact \
-        && ln -srf partner-contact/* ../extra-addons/
-
-VOLUME /etc/odoo /var/lib/odoo
+        && for repo in \
+            OCA/web \
+            OCA/server-brand \
+            OCA/server-tools \
+            Openworx/backend_theme \
+            OCA/website \
+            OCA/contract \
+            OCA/project \
+            OCA/l10n-france \
+            OCA/partner-contact \
+        ; do curl -SL https://github.com/$repo/12.0.zip \
+            && unzip 12.0.zip \
+            && mv -f ${repo#*/}-12.0/* . \
+            && rmdir ${repo#*/}-12.0 \
+        ; done \
+        && rm -rf setup .gitignore README.md .travis.yml *zip
+            
+            
+VOLUME /var/lib/odoo
 COPY odoo.conf /etc/odoo/
-USER odoo
