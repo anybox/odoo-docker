@@ -15,7 +15,7 @@ RUN set -x; \
             OCA/project \
             OCA/l10n-france \
             OCA/partner-contact \
-        ; do curl -SL https://github.com/$repo/12.0.zip \
+        ; do curl -SL https://github.com/$repo/archive/12.0.zip \
             && unzip 12.0.zip \
             && mv -f ${repo#*/}-12.0/* . \
             && rmdir ${repo#*/}-12.0 \
