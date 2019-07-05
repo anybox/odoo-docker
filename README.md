@@ -4,9 +4,12 @@ Set of docker images and some sample docker-compose files for Odoo.
 
 Directories layout:
 
+    ├── debian :     Debian base image
     ├── odoo :       docker image for **Odoo** (Community)
-    ├── odoo-ee :    docker image for **Odoo EE**
-    ├── odoo-oca :   docker image for **Odoo + OCA modules**
+    ├── ocb  :       docker image for **OCB** (Community from OCA)
+    ├── odoo+oca :   docker image for **Odoo + OCA modules**
+    ├── ocb+oca :    docker image for **OCB + OCA modules**
+    ├── odoo+ee :    docker image for **Odoo EE**
 
 
 ## Build the docker images
