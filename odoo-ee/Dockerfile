@@ -9,7 +9,7 @@ RUN set -x; \
     cd /srv/extra-addons \
 #
     ### DOWNLOAD MODULES
-    curl -OJL -u ${CI_GITHUB_TOKEN}:x-oauth-basic \
+    curl -OJL -u ${GITHUB_TOKEN}:x-oauth-basic \
       https://github.com/odoo/enterprise/archive/$VERSION.zip
         && unzip enterprise-$VERSION.zip \
         && mv -f enterprise-$VERSION/* . \

@@ -20,22 +20,22 @@ build:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - docker pull $IMAGE/postgresql:11 || true
     - docker pull $IMAGE/debian:stretch || true
-    - docker pull $IMAGE/odoo:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb:$COMMIT_TAG || true
-    - docker pull $IMAGE/odoo-oca:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb-oca:$COMMIT_TAG || true
+    - docker pull $IMAGE/odoo:$COMMIT_TAG || true
+    - docker pull $IMAGE/odoo-ee:$COMMIT_TAG || true
     - docker build --cache-from $IMAGE/postgresql:11 -t $IMAGE/postgresql:11 postgresql
     - docker build --cache-from $IMAGE/debian:stretch -t $IMAGE/debian:stretch debian
-    - docker build --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
     - docker build --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG odoo
-    - docker build --cache-from $IMAGE/odoo-oca:$COMMIT_TAG -t $IMAGE/odoo-oca:$COMMIT_TAG odoo-oca
     - docker build --cache-from $IMAGE/ocb-oca:$COMMIT_TAG -t $IMAGE/ocb-oca:$COMMIT_TAG ocb-oca
+    - docker build --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
+    - docker build --cache-from $IMAGE/odoo-ee:$COMMIT_TAG -t $IMAGE/odoo-ee:$COMMIT_TAG odoo
     - docker push $IMAGE/postgresql:11
     - docker push $IMAGE/debian:stretch
-    - docker push $IMAGE/odoo:$COMMIT_TAG
     - docker push $IMAGE/ocb:$COMMIT_TAG
-    - docker push $IMAGE/odoo-oca:$COMMIT_TAG
     - docker push $IMAGE/ocb-oca:$COMMIT_TAG
+    - docker push $IMAGE/odoo:$COMMIT_TAG
+    - docker push $IMAGE/odoo-ee:$COMMIT_TAG
 
 test:
   stage: test
