@@ -1,6 +1,7 @@
 FROM registry.anybox.cloud/anybox/odoo-docker/odoo:12.0
 
 LABEL maintainer="Anybox"
+ARG GITHUB_TOKEN
 ENV VERSION 12.0
 
 USER root
