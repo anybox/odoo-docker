@@ -7,9 +7,9 @@ RUN cd /srv \
     && curl -o OCB.zip -sSL https://github.com/OCA/OCB/archive/$VERSION.zip \
     && unzip -q OCB.zip \
     && rm OCB.zip \
-    && mv OCB-$VERSION OCB \
-    && pip3 install --no-cache-dir -e OCB/ \
-    && pip3 install --no-cache-dir -r OCB/requirements.txt
+    && mv OCB-$VERSION odoo \
+    && pip3 install --no-cache-dir -e odoo/ \
+    && pip3 install --no-cache-dir -r odoo/requirements.txt
 
 
 COPY ./entrypoint.sh /
