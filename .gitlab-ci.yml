@@ -25,14 +25,16 @@ build:
     - docker pull $IMAGE/odoo-oca:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb-oca:$COMMIT_TAG || true
     - docker build --cache-from $IMAGE/postgresql:11 -t $IMAGE/postgresql:11 postgresql
-    - docker push $IMAGE/postgresql:11
     - docker build --cache-from $IMAGE/debian:stretch -t $IMAGE/debian:stretch debian
-    - docker push $IMAGE/debian:stretch
     - docker build --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
-    - docker push $IMAGE/odoo:$COMMIT_TAG
+    - docker build --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG odoo
     - docker build --cache-from $IMAGE/odoo-oca:$COMMIT_TAG -t $IMAGE/odoo-oca:$COMMIT_TAG odoo-oca
-    - docker push $IMAGE/odoo-oca:$COMMIT_TAG
     - docker build --cache-from $IMAGE/ocb-oca:$COMMIT_TAG -t $IMAGE/ocb-oca:$COMMIT_TAG ocb-oca
+    - docker push $IMAGE/postgresql:11
+    - docker push $IMAGE/debian:stretch
+    - docker push $IMAGE/odoo:$COMMIT_TAG
+    - docker push $IMAGE/ocb:$COMMIT_TAG
+    - docker push $IMAGE/odoo-oca:$COMMIT_TAG
     - docker push $IMAGE/ocb-oca:$COMMIT_TAG
 
 test:
