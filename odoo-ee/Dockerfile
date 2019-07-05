@@ -11,10 +11,9 @@ RUN set -x; \
     ### DOWNLOAD MODULES
     curl -OJL -u ${GITHUB_TOKEN}:x-oauth-basic \
       https://github.com/odoo/enterprise/archive/$VERSION.zip \
-        && unzip -q enterprise-$VERSION.zip \
-        && mv -f enterprise-$VERSION/* . \
-        && rm -rf enterprise-$VERSION \
-    ; done \
-    && rm -rf .gitignore README.md .travis.yml *zip
+    && unzip -q enterprise-$VERSION.zip \
+    && mv -f enterprise-$VERSION/* . \
+    && rm -rf enterprise-$VERSION \
+    && rm -f enterprise-$VERSION.zip
 
 COPY odoo.conf /etc/odoo/
