@@ -3,6 +3,7 @@ LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION 12.0
 # change this to trigger a debian update:
+# This should be probably be removed in the future if the images are force-rebuilt regularly
 ENV LASTBUILD 20190705
 
 # Generate locale C.UTF-8 for postgres and general locale data
