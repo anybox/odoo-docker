@@ -5,7 +5,7 @@ ENV VERSION 12.0
 
 RUN cd /srv \
     && curl -o odoo.zip -SL https://github.com/odoo/odoo/archive/$VERSION.zip \
-    && unzip odoo.zip \
+    && unzip -q odoo.zip \
     && rm odoo.zip \
     && mv odoo-$VERSION odoo \
     && pip3 install --no-cache-dir -e odoo/ \

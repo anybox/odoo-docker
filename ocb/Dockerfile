@@ -5,7 +5,7 @@ ENV VERSION 12.0
 
 RUN cd /srv \
     && curl -o OCB.zip -SL https://github.com/OCA/OCB/archive/$VERSION.zip \
-    && unzip OCB.zip \
+    && unzip -q OCB.zip \
     && rm OCB.zip \
     && mv OCB-$VERSION OCB \
     && pip3 install --no-cache-dir -e OCB/ \

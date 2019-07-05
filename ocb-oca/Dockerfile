@@ -18,7 +18,7 @@ RUN set -x; \
         OCA/l10n-france \
         OCA/partner-contact \
     ; do curl -o addons.zip -sSL https://github.com/$repo/archive/$VERSION.zip \
-        && unzip addons.zip \
+        && unzip -q addons.zip \
         && rm -rf ${repo#*/}-$VERSION/setup \
         && mv -f ${repo#*/}-$VERSION/* . \
         && rm -rf ${repo#*/}-$VERSION \
