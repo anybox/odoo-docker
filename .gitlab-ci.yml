@@ -29,7 +29,7 @@ build:
     - docker build --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG ocb
     - docker build --cache-from $IMAGE/ocb-oca:$COMMIT_TAG -t $IMAGE/ocb-oca:$COMMIT_TAG ocb-oca
     - docker build --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
-    - docker build --cache-from $IMAGE/odoo-ee:$COMMIT_TAG -t $IMAGE/odoo-ee:$COMMIT_TAG odoo-ee
+    - docker build --cache-from $IMAGE/odoo-ee:$COMMIT_TAG -t $IMAGE/odoo-ee:$COMMIT_TAG --build-arg GITHUB_TOKEN=$GITHUB_TOKEN odoo-ee
     - docker push $IMAGE/postgresql:11
     - docker push $IMAGE/debian:stretch
     - docker push $IMAGE/ocb:$COMMIT_TAG
