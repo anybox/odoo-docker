@@ -4,7 +4,7 @@ LABEL maintainer="Anybox"
 ENV VERSION 12.0
 
 RUN cd /srv \
-    && curl -o odoo.zip -SL https://github.com/odoo/odoo/archive/$VERSION.zip \
+    && curl -o odoo.zip -sSL https://github.com/odoo/odoo/archive/$VERSION.zip \
     && unzip -q odoo.zip \
     && rm odoo.zip \
     && mv odoo-$VERSION odoo \
