@@ -1,18 +1,20 @@
-FROM anybox/odoo:12.0
-MAINTAINER Anybox
+FROM registry.anybox.cloud/anybox/odoo-docker/odoo:12.0
+
+LABEL maintainer="Anybox"
+ENV VERSION 12.0
 
 USER root
 
 RUN set -x; \
-        apt-get update \
-        && apt-get install -y --no-install-recommends git \
-        && mkdir -p /srv/repositories /srv/custom-addons \
-        && cd /srv/repositories \
+    cd /srv/extra-addons \
 #
-        ### DOWNLOAD MODULES
-        && git clone -b 12.0 https://${GITHUB_ACCOUNT}:${GITHUB_TOKEN}@github.com/odoo/enterprise \
-        && ln -srf enterprise/* ../extra-addons/
+    ### DOWNLOAD MODULES
+    curl -OJL -u ${CI_GITHUB_TOKEN}:x-oauth-basic \
+      https://github.com/odoo/enterprise/archive/$VERSION.zip
+        && unzip enterprise-$VERSION.zip \
+        && mv -f enterprise-$VERSION/* . \
+        && rm -rf enterprise-$VERSION \
+    ; done \
+    && rm -rf .gitignore README.md .travis.yml *zip
 
-VOLUME /etc/odoo /var/lib/odoo
 COPY odoo.conf /etc/odoo/
-USER odoo
