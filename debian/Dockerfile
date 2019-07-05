@@ -2,6 +2,8 @@ FROM debian:stretch
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION 12.0
+# change this to trigger a debian update:
+ENV LASTBUILD 20190705
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8

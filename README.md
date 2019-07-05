@@ -5,14 +5,20 @@ Set of docker images and some sample docker-compose files for Odoo.
 Directories layout:
 
     ├── debian :     Debian base image
-    ├── odoo :       docker image for **Odoo** (Community)
     ├── ocb  :       docker image for **OCB** (Community from OCA)
-    ├── odoo-oca :   docker image for **Odoo + OCA modules**
     ├── ocb-oca :    docker image for **OCB + OCA modules**
+    ├── odoo :       docker image for **Odoo** (Community)
     ├── odoo-ee :    docker image for **Odoo EE**
 
 
-## Build the docker images
+## Update the images in the CI
+
+By default during the rebuild, the previous images are used. If you want to
+trigger a full rebuild of the base Debian image, the Odoo code and modules
+code, you just have to update the LASTBUILD variable in the Dockerfile of the
+debian base image
+
+## Locally build the docker images
 
 First checkout this repository:
 
