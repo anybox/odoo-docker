@@ -4,8 +4,6 @@ LABEL maintainer="Anybox"
 ARG GITHUB_TOKEN
 ENV VERSION 12.0
 
-USER root
-
 RUN set -x; \
     cd /srv/extra-addons \
 #
