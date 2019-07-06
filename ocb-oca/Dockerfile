@@ -8,15 +8,16 @@ RUN set -x; \
 #
     ### DOWNLOAD MODULES
     && for repo in \
-        OCA/web \
-        OCA/server-brand \
-        OCA/server-tools \
-        Openworx/backend_theme \
-        OCA/website \
         OCA/contract \
-        OCA/project \
+        OCA/knowledge \
         OCA/l10n-france \
         OCA/partner-contact \
+        OCA/project \
+        OCA/server-brand \
+        OCA/server-tools \
+        OCA/web \
+        OCA/website \
+        Openworx/backend_theme \
     ; do curl -o addons.zip -sSL https://github.com/$repo/archive/$VERSION.zip \
         && unzip -q addons.zip \
         && rm -rf ${repo#*/}-$VERSION/setup \
