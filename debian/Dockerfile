@@ -61,7 +61,7 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && python3 -m pip install --no-cache-dir --upgrade pip \
-    && pip3 install --no-cache-dir simplejson num2words xlwt unicodecsv \
+    && pip3 install --no-cache-dir simplejson num2words unicodecsv phonenumbers \
     && pip3 install --no-cache-dir -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
