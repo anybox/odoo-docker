@@ -9,6 +9,7 @@ RUN set -x; \
     ### DOWNLOAD MODULES
     && for repo in \
         OCA/contract \
+        OCA/crm \
         OCA/knowledge \
         OCA/l10n-france \
         OCA/partner-contact \
