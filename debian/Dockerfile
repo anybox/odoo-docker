@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION 12.0
