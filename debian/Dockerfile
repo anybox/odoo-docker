@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:stretch
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION 12.0
@@ -22,8 +22,8 @@ RUN set -x; \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
     && sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
-    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > etc/apt/sources.list.d/pgdg.list \
+    && echo "deb http://deb.nodesource.com/node_8.x buster main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" > etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         adduser \
@@ -34,7 +34,7 @@ RUN set -x; \
         geoip-bin \
         # unavailable:
         #geoip-database-contrib \
-        libssl1.0-dev \
+        libssl-dev \
         lsb-base \
         node-clean-css \
         node-less \
