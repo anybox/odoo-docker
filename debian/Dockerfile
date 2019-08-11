@@ -1,7 +1,7 @@
-FROM debian:stretch
+FROM debian:jessie
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
-ENV VERSION 11.0
+ENV VERSION 10.0
 # change this to trigger a debian update:
 # This should be probably be removed in the future if the images are force-rebuilt regularly
 ENV LASTBUILD 2019081101
@@ -22,14 +22,13 @@ RUN set -x; \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
     && sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
-    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > etc/apt/sources.list.d/pgdg.list \
+    && echo "deb http://deb.nodesource.com/node_8.x jessie main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         adduser \
         ca-certificates \
         curl \
-        fonts-noto-cjk \
         # for geoip OCA modules:
         geoip-bin \
         # unavailable:
@@ -38,37 +37,37 @@ RUN set -x; \
         lsb-base \
         node-clean-css \
         node-less \
-        python3-pip \
+        python-pip \
         postgresql-client \
-        python3-pyldap \
-        python3-qrcode \
-        python3-renderpm \
-        python3-setuptools \
-        python3-vobject \
-        python3-watchdog \
+        python-ldap \
+        python-qrcode \
+        python-renderpm \
+        python-setuptools \
+        python-vobject \
+        python-watchdog \
         xz-utils \
         build-essential \
         libldap2-dev \ 
         libpq-dev \
         libsasl2-dev \
-        python3-dev \
+        python-dev \
         unzip \
         nodejs \
-    && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+    && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.jessie_amd64.deb \
     && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
     && dpkg --force-depends -i wkhtmltox.deb \
     && apt-get -y install -f --no-install-recommends \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
-    && python3 -m pip install --no-cache-dir --upgrade pip \
-    && pip3 install --no-cache-dir simplejson num2words unicodecsv phonenumbers \
-    && pip3 install --no-cache-dir -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
+    && python -m pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir simplejson num2words unicodecsv phonenumbers \
+    && pip install --no-cache-dir -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
         libldap2-dev \ 
         libpq-dev \
         libsasl2-dev \
-        python3-dev \
+        python-dev \
         sudo \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && adduser --system --quiet odoo
