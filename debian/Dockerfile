@@ -28,6 +28,7 @@ RUN set -x; \
     && apt-get install -y --no-install-recommends \
         adduser \
         ca-certificates \
+        cron \
         curl \
         fonts-noto-cjk \
         # for geoip OCA modules:
