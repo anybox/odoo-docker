@@ -10,7 +10,7 @@ stages:
   - build1
   - build2
   # - optimization
-  - test
+  # - test
   - pre-deploy
   - deploy
   - post-deploy
