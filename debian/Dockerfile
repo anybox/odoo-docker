@@ -1,7 +1,7 @@
 FROM debian:jessie
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
-ENV VERSION 10.0
+ENV VERSION 9.0
 # change this to trigger a debian update:
 # This should be probably be removed in the future if the images are force-rebuilt regularly
 ENV LASTBUILD 2019081101
@@ -33,26 +33,32 @@ RUN set -x; \
         geoip-bin \
         # unavailable:
         #geoip-database-contrib \
+        build-essential \
+        libffi-dev \
+        libjpeg-dev \
+        libjpeg62-turbo-dev \
+        libldap2-dev \ 
+        libpq-dev \
+        libsasl2-dev \
         libssl-dev \
+        libxml2-dev \
+        libxslt1-dev \
         lsb-base \
         node-clean-css \
         node-less \
-        python-pip \
+        nodejs \
         postgresql-client \
+        python-dev \
         python-ldap \
+        python-pip \
         python-qrcode \
         python-renderpm \
         python-setuptools \
         python-vobject \
         python-watchdog \
-        xz-utils \
-        build-essential \
-        libldap2-dev \ 
-        libpq-dev \
-        libsasl2-dev \
-        python-dev \
         unzip \
-        nodejs \
+        xz-utils \
+        zlib1g-dev \
     && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.jessie_amd64.deb \
     && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
     && dpkg --force-depends -i wkhtmltox.deb \
@@ -64,10 +70,16 @@ RUN set -x; \
     && pip install --no-cache-dir -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
+        libffi-dev \
+        libjpeg-dev \
+        libjpeg62-turbo-dev \
         libldap2-dev \ 
         libpq-dev \
         libsasl2-dev \
+        libxml2-dev \
+        libxslt1-dev \
         python-dev \
         sudo \
+        zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && adduser --system --quiet odoo

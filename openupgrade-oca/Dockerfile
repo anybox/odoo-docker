@@ -1,7 +1,7 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/openupgrade:10.0
+FROM registry.anybox.cloud/anybox/odoo-docker/openupgrade:9.0
 
 LABEL maintainer="Anybox"
-ENV VERSION 10.0
+ENV VERSION 9.0
 
 RUN set -x; \
     cd /srv/extra-addons \
