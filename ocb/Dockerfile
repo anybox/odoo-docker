@@ -3,7 +3,7 @@ FROM registry.anybox.cloud/anybox/odoo-docker/debian:stretch
 LABEL maintainer="Anybox"
 ENV GHUSER OCA
 ENV GHREPO OCB
-ENV VERSION 12.0
+ENV VERSION 11.0
 
 RUN cd /srv \
     && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \

@@ -1,7 +1,7 @@
 FROM debian:stretch
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
-ENV VERSION 12.0
+ENV VERSION 11.0
 # change this to trigger a debian update:
 # This should be probably be removed in the future if the images are force-rebuilt regularly
 ENV LASTBUILD 2019081101
