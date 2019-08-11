@@ -49,7 +49,6 @@ RUN set -x; \
         nodejs \
         postgresql-client \
         python-dev \
-        python-ldap \
         python-pip \
         python-qrcode \
         python-renderpm \
@@ -66,6 +65,7 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && pip install --upgrade pip \
+    && hash -d pip \
     && pip install --no-cache-dir simplejson num2words unicodecsv phonenumbers \
     && pip install --no-cache-dir -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
