@@ -34,6 +34,7 @@ RUN set -x; \
         # unavailable:
         #geoip-database-contrib \
         build-essential \
+        cron \
         libffi-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
