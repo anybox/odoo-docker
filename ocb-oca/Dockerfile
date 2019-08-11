@@ -1,7 +1,7 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/ocb:9.0
+FROM registry.anybox.cloud/anybox/odoo-docker/ocb:8.0
 
 LABEL maintainer="Anybox"
-ENV VERSION 9.0
+ENV VERSION 8.0
 
 RUN set -x; \
     cd /srv/extra-addons \
@@ -18,7 +18,6 @@ RUN set -x; \
         OCA/server-tools \
         OCA/web \
         OCA/website \
-        Openworx/backend_theme \
     ; do curl -o addons.zip -sSL https://github.com/$repo/archive/$VERSION.zip \
         && unzip -q addons.zip \
         && rm -rf ${repo#*/}-$VERSION/setup \
