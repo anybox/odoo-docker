@@ -65,20 +65,20 @@ build-ee:
     - docker push $IMAGE/odoo:$COMMIT_TAG
     - docker push $IMAGE/odoo-ee:$COMMIT_TAG
 
-test:
-  stage: test
-  image: registry.anybox.cloud/infra/infra-cli:dev
-  script:
-    - export DOCKER_HOST=tcp://docker:2375/
-    - make test
-    - toolbox_cli analyse-odoo-tests test.log
-  artifacts:
-    when: always
-    paths:
-      - test.log
-    expire_in: 1 day
-
-
+#test:
+#  stage: test
+#  image: registry.anybox.cloud/infra/infra-cli:dev
+#  script:
+#    - export DOCKER_HOST=tcp://docker:2375/
+#    - make test
+#    - toolbox_cli analyse-odoo-tests test.log
+#  artifacts:
+#    when: always
+#    paths:
+#      - test.log
+#    expire_in: 1 day
+#
+#
 # container_scanning:
 #   stage: optimization
 #   variables:
