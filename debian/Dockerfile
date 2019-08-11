@@ -60,7 +60,7 @@ RUN set -x; \
         xz-utils \
         zlib1g-dev \
     && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.jessie_amd64.deb \
-    && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
+    && echo '4d104ff338dc2d2083457b3b1e9baab8ddf14202 wkhtmltox.deb' | sha1sum -c - \
     && dpkg --force-depends -i wkhtmltox.deb \
     && apt-get -y install -f --no-install-recommends \
     && rm wkhtmltox.deb \
