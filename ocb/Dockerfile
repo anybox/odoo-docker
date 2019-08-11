@@ -1,17 +1,17 @@
 FROM registry.anybox.cloud/anybox/odoo-docker/debian:stretch
 
 LABEL maintainer="Anybox"
-ENV VERSION 12.0
 ENV GHUSER OCA
 ENV GHREPO OCB
+ENV VERSION 12.0
 
 RUN cd /srv \
     && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \
     && unzip -q odoo.zip \
     && rm odoo.zip \
     && mv $GHREPO-$VERSION odoo \
-    && pip3 install --no-cache-dir -e $GHREPO/ \
-    && pip3 install --no-cache-dir -r $GHREPO/requirements.txt
+    && pip3 install --no-cache-dir -e odoo/ \
+    && pip3 install --no-cache-dir -r odoo/requirements.txt
 
 
 COPY ./entrypoint.sh /
