@@ -19,7 +19,6 @@ RUN set -x; \
     && repokey='9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280' \
     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
     && gpg --armor --export "${repokey}" | apt-key add - \
-    && killall gpg-agent \
     && rm -rf "$GNUPGHOME" \
     && sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
     && echo "deb http://deb.nodesource.com/node_8.x jessie main" > /etc/apt/sources.list.d/nodesource.list \
