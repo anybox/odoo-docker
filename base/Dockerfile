@@ -1,6 +1,10 @@
 FROM debian:jessie
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
+
+ARG GHUSER OCA
+ARG GHREPO OCB
+
 ENV VERSION 9.0
 # change this to trigger a debian update:
 # This should be probably be removed in the future if the images are force-rebuilt regularly
@@ -27,17 +31,17 @@ RUN set -x; \
     && apt-get install -y --no-install-recommends \
         adduser \
         ca-certificates \
+        cron \
         curl \
         # for geoip OCA modules:
         geoip-bin \
         # unavailable:
         #geoip-database-contrib \
         build-essential \
-        cron \
         libffi-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
-        libldap2-dev \ 
+        libldap2-dev \
         libpq-dev \
         libsasl2-dev \
         libssl-dev \
@@ -66,13 +70,13 @@ RUN set -x; \
     && npm install --no-save -g rtlcss \
     && pip install --upgrade pip \
     && pip install simplejson num2words unicodecsv phonenumbers \
-    && pip install -r https://github.com/odoo/odoo/raw/$VERSION/requirements.txt \
+    && pip install -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
         libffi-dev \
         libjpeg-dev \
         libjpeg62-turbo-dev \
-        libldap2-dev \ 
+        libldap2-dev \
         libpq-dev \
         libsasl2-dev \
         libxml2-dev \
@@ -82,3 +86,30 @@ RUN set -x; \
         zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && adduser --system --quiet odoo
+
+RUN cd /srv \
+    && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \
+    && unzip -q odoo.zip \
+    && rm odoo.zip \
+    && mv $GHREPO-$VERSION odoo \
+    && pip3 install --no-cache-dir -e odoo/ \
+    && pip3 install --no-cache-dir -r odoo/requirements.txt
+
+
+COPY ./entrypoint.sh /
+
+RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
+        && chown -R odoo: /srv/extra-addons /srv/custom-addons /var/lib/odoo
+COPY ./odoo.conf /etc/odoo/
+RUN chown odoo /etc/odoo/odoo.conf
+VOLUME ["/var/lib/odoo"]
+
+EXPOSE 8069 8072
+
+ENV ODOO_RC /etc/odoo/odoo.conf
+
+USER odoo
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/srv/odoo/odoo-bin"]
+
