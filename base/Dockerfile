@@ -91,8 +91,8 @@ RUN cd /srv \
     && unzip -q odoo.zip \
     && rm odoo.zip \
     && mv $GHREPO-$VERSION odoo \
-    && pip3 install --no-cache-dir -e odoo/ \
-    && pip3 install --no-cache-dir -r odoo/requirements.txt
+    && pip install --no-cache-dir -e odoo/ \
+    && pip install --no-cache-dir -r odoo/requirements.txt
 
 COPY ./entrypoint.sh /
 RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
