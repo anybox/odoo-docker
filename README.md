@@ -7,7 +7,6 @@ Directories layout:
     ├── base :       Base image for Odoo, OCB and OpenUpgrade
     ├── ocb-oca :    docker image for **OCB + OCA modules**
     ├── openupgrade-oca : docker image for **OpenUpgrade + OCA modules**
-    ├── odoo-ee :    docker image for **Odoo EE**
 
 
 ## Update the images in the CI
