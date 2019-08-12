@@ -2,8 +2,8 @@ FROM debian:jessie
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV GHUSER OCA
-ENV GHREPO OCB
+ARG GHUSER OCA
+ARG GHREPO OCB
 
 ENV VERSION 10.0
 # change this to trigger a debian update:
