@@ -2,8 +2,8 @@ FROM debian:stretch
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG GHUSER OCA
-ARG GHREPO OCB
+ARG GHUSER
+ARG GHREPO
 
 ENV VERSION 12.0
 # change this to trigger a debian update:
