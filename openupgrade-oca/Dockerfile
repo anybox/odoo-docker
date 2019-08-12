@@ -18,7 +18,6 @@ RUN set -x; \
         OCA/server-tools \
         OCA/web \
         OCA/website \
-        Openworx/backend_theme \
     ; do curl -o addons.zip -sSL https://github.com/$repo/archive/$VERSION.zip \
         && unzip -q addons.zip \
         && rm -rf ${repo#*/}-$VERSION/setup \
