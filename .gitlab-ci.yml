@@ -30,7 +30,7 @@ build-oca:
     - docker pull $IMAGE/postgresql:11
     - docker pull $IMAGE/ocb:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb-oca:$COMMIT_TAG || true
-    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OCB --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG ocb
+    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OCB --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG base
     - docker build --cache-from $IMAGE/ocb-oca:$COMMIT_TAG -t $IMAGE/ocb-oca:$COMMIT_TAG ocb-oca
     - docker push $IMAGE/ocb:$COMMIT_TAG
     - docker push $IMAGE/ocb-oca:$COMMIT_TAG
@@ -42,7 +42,7 @@ build-openupgrade:
     - docker pull $IMAGE/postgresql:11
     - docker pull $IMAGE/openupgrade:$COMMIT_TAG || true
     - docker pull $IMAGE/openupgrade-oca:$COMMIT_TAG || true
-    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OpenUpgrade --cache-from $IMAGE/openupgrade:$COMMIT_TAG -t $IMAGE/openupgrade:$COMMIT_TAG openupgrade
+    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OpenUpgrade --cache-from $IMAGE/openupgrade:$COMMIT_TAG -t $IMAGE/openupgrade:$COMMIT_TAG base
     - docker build --cache-from $IMAGE/openupgrade-oca:$COMMIT_TAG -t $IMAGE/openupgrade-oca:$COMMIT_TAG openupgrade-oca
     - docker push $IMAGE/openupgrade:$COMMIT_TAG
     - docker push $IMAGE/openupgrade-oca:$COMMIT_TAG
@@ -54,7 +54,7 @@ build-ee:
     - docker pull $IMAGE/postgresql:11
     - docker pull $IMAGE/odoo:$COMMIT_TAG || true
     - docker pull $IMAGE/odoo-ee:$COMMIT_TAG || true
-    - docker build --build-arg GHUSER=odoo --build-arg GHREPO=odoo --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
+    - docker build --build-arg GHUSER=odoo --build-arg GHREPO=odoo --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG base
     - docker build --cache-from $IMAGE/odoo-ee:$COMMIT_TAG -t $IMAGE/odoo-ee:$COMMIT_TAG --build-arg GITHUB_TOKEN=$GITHUB_TOKEN odoo-ee
     - docker push $IMAGE/odoo:$COMMIT_TAG
     - docker push $IMAGE/odoo-ee:$COMMIT_TAG
