@@ -1,7 +1,7 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/ocb:8.0
+FROM registry.anybox.cloud/anybox/odoo-docker/ocb:7.0
 
 LABEL maintainer="Anybox"
-ENV VERSION 8.0
+ENV VERSION 7.0
 
 RUN set -x; \
     cd /srv/extra-addons \

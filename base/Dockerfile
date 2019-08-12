@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ARG GHUSER
 ARG GHREPO
-ENV VERSION 8.0
+ENV VERSION 7.0
 
 # change this to trigger a debian update:
 ENV LASTBUILD 2019081101
