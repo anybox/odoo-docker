@@ -20,21 +20,17 @@ build-base:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - docker pull $IMAGE/postgresql:11 || true
-    - docker pull $IMAGE/debian:stretch || true
     - docker build --cache-from $IMAGE/postgresql:11 -t $IMAGE/postgresql:11 postgresql
-    - docker build --cache-from $IMAGE/debian:stretch -t $IMAGE/debian:stretch debian
     - docker push $IMAGE/postgresql:11
-    - docker push $IMAGE/debian:stretch
 
 build-oca:
   stage: build2
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - docker pull $IMAGE/postgresql:11
-    - docker pull $IMAGE/debian:stretch
     - docker pull $IMAGE/ocb:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb-oca:$COMMIT_TAG || true
-    - docker build --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG ocb
+    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OCB --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG ocb
     - docker build --cache-from $IMAGE/ocb-oca:$COMMIT_TAG -t $IMAGE/ocb-oca:$COMMIT_TAG ocb-oca
     - docker push $IMAGE/ocb:$COMMIT_TAG
     - docker push $IMAGE/ocb-oca:$COMMIT_TAG
@@ -44,10 +40,9 @@ build-openupgrade:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - docker pull $IMAGE/postgresql:11
-    - docker pull $IMAGE/debian:stretch
     - docker pull $IMAGE/openupgrade:$COMMIT_TAG || true
     - docker pull $IMAGE/openupgrade-oca:$COMMIT_TAG || true
-    - docker build --cache-from $IMAGE/openupgrade:$COMMIT_TAG -t $IMAGE/openupgrade:$COMMIT_TAG openupgrade
+    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OpenUpgrade --cache-from $IMAGE/openupgrade:$COMMIT_TAG -t $IMAGE/openupgrade:$COMMIT_TAG openupgrade
     - docker build --cache-from $IMAGE/openupgrade-oca:$COMMIT_TAG -t $IMAGE/openupgrade-oca:$COMMIT_TAG openupgrade-oca
     - docker push $IMAGE/openupgrade:$COMMIT_TAG
     - docker push $IMAGE/openupgrade-oca:$COMMIT_TAG
@@ -57,10 +52,9 @@ build-ee:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
     - docker pull $IMAGE/postgresql:11
-    - docker pull $IMAGE/debian:stretch
     - docker pull $IMAGE/odoo:$COMMIT_TAG || true
     - docker pull $IMAGE/odoo-ee:$COMMIT_TAG || true
-    - docker build --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
+    - docker build --build-arg GHUSER=odoo --build-arg GHREPO=odoo --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG odoo
     - docker build --cache-from $IMAGE/odoo-ee:$COMMIT_TAG -t $IMAGE/odoo-ee:$COMMIT_TAG --build-arg GITHUB_TOKEN=$GITHUB_TOKEN odoo-ee
     - docker push $IMAGE/odoo:$COMMIT_TAG
     - docker push $IMAGE/odoo-ee:$COMMIT_TAG
