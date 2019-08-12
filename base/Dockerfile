@@ -2,8 +2,8 @@ FROM debian:jessie
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG GHUSER OCA
-ARG GHREPO OCB
+ARG GHUSER
+ARG GHREPO
 
 ENV VERSION 9.0
 # change this to trigger a debian update:
