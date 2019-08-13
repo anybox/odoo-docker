@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ARG GHUSER
 ARG GHREPO
+
 ENV VERSION 7.0
 
 # change this to trigger a debian update:
@@ -46,6 +47,7 @@ RUN set -x; \
         libssl-dev \
         libxml2-dev \
         libxslt1-dev \
+        libxslt1.1 \
         lsb-base \
         node-clean-css \
         node-less \
