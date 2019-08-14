@@ -1,4 +1,4 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/openupgrade:8.0
+FROM registry.anybox.cloud/anybox/odoo-docker/openupgrade:7.0
 
 LABEL maintainer="Anybox"
 ENV VERSION 7.0
