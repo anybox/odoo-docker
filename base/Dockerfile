@@ -54,6 +54,7 @@ RUN set -x; \
         nodejs \
         postgresql-client \
         python-dev \
+        python-imaging \
         python-pip \
         python-qrcode \
         python-renderpm \

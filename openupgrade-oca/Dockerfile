@@ -1,7 +1,7 @@
 FROM registry.anybox.cloud/anybox/odoo-docker/openupgrade:8.0
 
 LABEL maintainer="Anybox"
-ENV VERSION 8.0
+ENV VERSION 7.0
 
 RUN set -x; \
     cd /srv/extra-addons \
@@ -14,10 +14,8 @@ RUN set -x; \
         OCA/l10n-france \
         OCA/partner-contact \
         OCA/project \
-        OCA/server-brand \
         OCA/server-tools \
         OCA/web \
-        OCA/website \
     ; do curl -o addons.zip -sSL https://github.com/$repo/archive/$VERSION.zip \
         && unzip -q addons.zip \
         && rm -rf ${repo#*/}-$VERSION/setup \
