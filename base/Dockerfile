@@ -110,5 +110,5 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/srv/odoo/odoo-bin"]
+CMD ["/srv/odoo/odoo.py"]
 

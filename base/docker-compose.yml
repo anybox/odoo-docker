@@ -11,7 +11,7 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072"
-    command: /srv/odoo/odoo-bin -i base
+    command: /srv/odoo/odoo.py -i base
 
   db:
     build: ../postgresql
