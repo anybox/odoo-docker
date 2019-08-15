@@ -69,6 +69,7 @@ RUN set -x; \
     && apt-get -y install -f --no-install-recommends \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
+    && npm install --no-save -g less@1.4.2 \
     && pip install --upgrade pip \
     && pip install simplejson num2words unicodecsv phonenumbers \
     && pip install -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
