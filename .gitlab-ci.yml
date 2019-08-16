@@ -36,18 +36,6 @@ build-oca:
     - docker push $IMAGE/ocb:$COMMIT_TAG
     - docker push $IMAGE/ocb-oca:$COMMIT_TAG
 
-build-openupgrade:
-  stage: build2
-  script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker pull $IMAGE/postgresql:11
-    - docker pull $IMAGE/openupgrade:$COMMIT_TAG || true
-    - docker pull $IMAGE/openupgrade-oca:$COMMIT_TAG || true
-    - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OpenUpgrade --cache-from $IMAGE/openupgrade:$COMMIT_TAG -t $IMAGE/openupgrade:$COMMIT_TAG base
-    - docker build --cache-from $IMAGE/openupgrade-oca:$COMMIT_TAG -t $IMAGE/openupgrade-oca:$COMMIT_TAG openupgrade-oca
-    - docker push $IMAGE/openupgrade:$COMMIT_TAG
-    - docker push $IMAGE/openupgrade-oca:$COMMIT_TAG
-
 build-ee:
   stage: build2
   script:
