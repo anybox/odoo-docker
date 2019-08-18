@@ -46,6 +46,7 @@ RUN set -x; \
         libssl-dev \
         libxml2-dev \
         libxslt1-dev \
+        libxslt1.1 \
         lsb-base \
         node-clean-css \
         node-less \
