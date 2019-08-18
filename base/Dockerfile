@@ -84,7 +84,7 @@ RUN set -x; \
         sudo \
         zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && adduser --system --quiet odoo
+    && adduser --system --quiet --home /var/lib/odoo odoo
 
 RUN cd /srv \
     && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \
