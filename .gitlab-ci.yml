@@ -2,6 +2,8 @@ variables:
   IMAGE: "$CI_REGISTRY_IMAGE"
   COMMIT_TAG: "$CI_COMMIT_REF_NAME"
   COMPOSE_FILE_TESTS: docker-compose-tests.yml
+  # gitlab 4501:
+  DOCKER_TLS_CERTDIR: ""
 
 services:
   - docker:dind
