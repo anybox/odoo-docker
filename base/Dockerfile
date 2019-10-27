@@ -71,7 +71,7 @@ RUN set -x; \
     && npm install --no-save -g rtlcss \
     && npm install --no-save -g less@1.4.2 \
     && pip install --upgrade pip \
-    && pip install simplejson num2words unicodecsv phonenumbers \
+    && pip install unidecode simplejson num2words unicodecsv phonenumbers \
     && pip install -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
