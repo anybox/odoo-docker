@@ -105,10 +105,10 @@ VOLUME ["/var/lib/odoo"]
 
 EXPOSE 8069 8072
 
-ENV ODOO_RC /etc/odoo/odoo.conf
+ENV OPENERP_SERVER /etc/odoo/odoo.conf
 
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/srv/odoo/odoo.py"]
+CMD ["/srv/odoo/openerp-server"]
 
