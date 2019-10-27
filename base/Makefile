@@ -9,7 +9,7 @@ init: ## Bootstrap your application. e.g. fetch some data files, make some API c
 	docker-compose exec -T -u postgres db sh -c "while ! psql -U postgres -d postgres -c 'select 1' ; do echo 'Waiting pgsql init...'; sleep 1; done;"
 	docker-compose exec -T -u postgres db createuser -d odoo
 	docker-compose exec -T -u postgres db createdb -O odoo odoo
-	docker-compose run --rm odoo /srv/odoo/odoo.py -d odoo	-i base --stop-after-init
+	docker-compose run --rm odoo /srv/odoo/openerp-server -d odoo	-i base --stop-after-init
 	docker-compose down
 
 #style: ## Check lint, code styling rules. e.g. pylint, phpcs, eslint, style (java) etc ...
@@ -21,7 +21,7 @@ init: ## Bootstrap your application. e.g. fetch some data files, make some API c
 test: ## Shortcut to launch all the test tasks (unit, functional and integration).
 	docker-compose up -d db
 	docker-compose exec -T -u postgres db sh -c "while ! psql -U odoo -d odoo -c 'select 1' ; do echo 'Waiting pgsql init...'; sleep 1; done;"
-	docker-compose run --rm odoo /srv/odoo/odoo.py -d odoo --test-enable --stop-after-init 2>&1 | tee test.log
+	docker-compose run --rm odoo /srv/odoo/openerp-server -d odoo --test-enable --stop-after-init 2>&1 | tee test.log
 	docker-compose down
 
 #test-unit: ## Launch unit tests. e.g. pytest, jest (js), phpunit, JUnit (java) etc ...
