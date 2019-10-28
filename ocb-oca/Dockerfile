@@ -4,9 +4,34 @@ LABEL maintainer="Anybox"
 ENV VERSION 9.0
 
 RUN set -x; \
-    cd /srv/extra-addons \
-#
-    ### DOWNLOAD MODULES
+    # build deps for addons
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+    apt-get install \
+        build-essential \
+        libffi-dev \
+        libjpeg-dev \
+        libjpeg62-turbo-dev \
+        libldap2-dev \
+        libpq-dev \
+        libsasl2-dev \
+        libxml2-dev \
+        libxslt1-dev \
+        python-dev \
+        sudo \
+        zlib1g-dev \
+    # install python deps of addons (functional style)
+    && for m in `python -c "\
+        from openerp.modules import module; \
+        from itertools import chain; \
+        print(' '.join(set(chain(*[\
+            module.load_information_from_description_file(m).get(\
+            'external_dependencies',{'python':[]})['python'] \
+            for m in module.get_modules()]))))"`; \
+        do pip install $m; done \
+    && pip install num2words phonenumbers simplejson \
+    ### DOWNLOAD ADDONS
+    && cd /srv/extra-addons \
     && for repo in \
         OCA/contract \
         OCA/crm \
@@ -24,7 +49,22 @@ RUN set -x; \
         && mv -f ${repo#*/}-$VERSION/* . \
         && rm -rf ${repo#*/}-$VERSION \
     ; done \
-    && rm -rf .gitignore README.md .travis.yml *zip
+    # cleanup
+    && rm -rf .gitignore README.md .travis.yml *zip \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+        build-essential \
+        libffi-dev \
+        libjpeg-dev \
+        libjpeg62-turbo-dev \
+        libldap2-dev \
+        libpq-dev \
+        libsasl2-dev \
+        libxml2-dev \
+        libxslt1-dev \
+        python-dev \
+        sudo \
+        zlib1g-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
             
             
 VOLUME /var/lib/odoo
