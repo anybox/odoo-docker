@@ -2,6 +2,7 @@ FROM registry.anybox.cloud/anybox/odoo-docker/ocb:9.0
 
 LABEL maintainer="Anybox"
 ENV VERSION 9.0
+USER root
 
 RUN set -x; \
     # build deps for addons
@@ -49,6 +50,7 @@ RUN set -x; \
         && mv -f ${repo#*/}-$VERSION/* . \
         && rm -rf ${repo#*/}-$VERSION \
     ; done \
+    && chown -R odoo:nogroup .
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
@@ -66,6 +68,6 @@ RUN set -x; \
         zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
             
-            
+USER odoo            
 VOLUME /var/lib/odoo
 COPY odoo.conf /etc/odoo/
