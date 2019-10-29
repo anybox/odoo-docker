@@ -50,7 +50,7 @@ RUN set -x; \
         && mv -f ${repo#*/}-$VERSION/* . \
         && rm -rf ${repo#*/}-$VERSION \
     ; done \
-    && chown -R odoo:nogroup .
+    && chown -R odoo:nogroup . \
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
