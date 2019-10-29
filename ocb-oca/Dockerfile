@@ -12,6 +12,7 @@ RUN set -x; \
         OCA/crm \
         OCA/knowledge \
         OCA/l10n-france \
+        OCA/account-financial-reporting \
         OCA/partner-contact \
         OCA/project \
         OCA/server-brand \
