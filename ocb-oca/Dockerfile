@@ -22,12 +22,12 @@ RUN set -x; \
         zlib1g-dev \
     # install python deps of addons (functional style)
     && for m in `python -c "\
-        from openerp.modules import module; \
-        from itertools import chain; \
-        print(' '.join(set(chain(*[\
-            module.load_information_from_description_file(m).get(\
-            'external_dependencies',{'python':[]})['python'] \
-            for m in module.get_modules()]))))"`; \
+from openerp.modules import module; \
+from itertools import chain; \
+print(' '.join(set(chain(*[\
+    module.load_information_from_description_file(m).get(\
+    'external_dependencies',{'python':[]})['python'] \
+    for m in module.get_modules()]))))"`; \
         do pip install $m; done \
     && pip install num2words phonenumbers simplejson \
     ### DOWNLOAD ADDONS
