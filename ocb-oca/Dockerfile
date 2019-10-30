@@ -39,12 +39,14 @@ print(' '.join(set(chain(*[\
     ### DOWNLOAD ADDONS
     && cd /srv/extra-addons \
     && for repo in \
+        OCA/account-financial-reporting \
         OCA/contract \
         OCA/crm \
         OCA/knowledge \
         OCA/l10n-france \
         OCA/partner-contact \
         OCA/project \
+        OCA/reporting-engine \
         OCA/server-brand \
         OCA/server-tools \
         OCA/web \

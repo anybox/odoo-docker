@@ -97,9 +97,7 @@ RUN cd /srv \
     && pip install --no-cache-dir -e odoo/ \
     && pip install --no-cache-dir -r odoo/requirements.txt
 
-
 COPY ./entrypoint.sh /
-
 RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
         && chown -R odoo: /srv/extra-addons /srv/custom-addons /var/lib/odoo
 COPY ./odoo.conf /etc/odoo/
