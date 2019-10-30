@@ -7,6 +7,7 @@ ARG GHREPO
 
 ENV VERSION 12.0
 # change this to trigger a debian update:
+# This should be probably be removed in the future if the images are force-rebuilt regularly
 ENV LASTBUILD 2019081101
 
 # Generate locale C.UTF-8 for postgres and general locale data
@@ -65,7 +66,6 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && python3 -m pip install --no-cache-dir --upgrade pip \
-    && pip3 install --no-cache-dir unidecode simplejson num2words unicodecsv phonenumbers \
     && pip3 install --no-cache-dir -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
