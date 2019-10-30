@@ -43,6 +43,8 @@ print(' '.join(set(chain(*[\
         OCA/crm \
         OCA/knowledge \
         OCA/l10n-france \
+        OCA/account-financial-reporting \
+        OCA/reporting-engine \
         OCA/partner-contact \
         OCA/project \
         OCA/server-brand \
