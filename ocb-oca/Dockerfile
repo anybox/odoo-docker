@@ -33,7 +33,7 @@ print(' '.join(set(chain(*[\
     'lxml.html', 'lxml').replace( \
     'usb.core', 'pyusb').replace( \
     'jwt', 'python-jwt').replace( \
-    'stdnum, python-stdnum'))"`; \
+    'stdnum', 'python-stdnum'))"`; \
         do pip install $m; done \
     && pip install num2words phonenumbers simplejson \
     ### DOWNLOAD ADDONS
