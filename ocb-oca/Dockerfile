@@ -20,14 +20,20 @@ RUN set -x; \
         python-dev \
         sudo \
         zlib1g-dev \
-    # install python deps of addons (functional style)
+    # detect, fix and install python deps of odoo addons (functional style)
     && for m in `python -c "\
 from openerp.modules import module; \
 from itertools import chain; \
 print(' '.join(set(chain(*[\
     module.load_information_from_description_file(m).get(\
     'external_dependencies',{'python':[]})['python'] \
-    for m in module.get_modules()]))))"`; \
+    for m in module.get_modules()]))).replace( \
+    'ldap', 'python-ldap').replace( \
+    'dateutil', 'python-dateutil').replace( \
+    'lxml.html', 'lxml').replace( \
+    'usb.core', 'pyusb').replace( \
+    'jwt', 'python-jwt').replace( \
+    'stdnum, python-stdnum'))"`; \
         do pip install $m; done \
     && pip install num2words phonenumbers simplejson \
     ### DOWNLOAD ADDONS
