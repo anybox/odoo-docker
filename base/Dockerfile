@@ -6,6 +6,7 @@ ARG GHUSER
 ARG GHREPO
 
 ENV VERSION 10.0
+
 # change this to trigger a debian update:
 ENV LASTBUILD 2019081101
 
@@ -69,7 +70,7 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && pip install --upgrade pip \
-    && pip install unidecode simplejson num2words unicodecsv phonenumbers \
+    && pip install num2words phonenumbers simplejson \
     && pip install -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
@@ -95,9 +96,7 @@ RUN cd /srv \
     && pip install --no-cache-dir -e odoo/ \
     && pip install --no-cache-dir -r odoo/requirements.txt
 
-
 COPY ./entrypoint.sh /
-
 RUN mkdir -p /srv/extra-addons /srv/custom-addons /var/lib/odoo \
         && chown -R odoo: /srv/extra-addons /srv/custom-addons /var/lib/odoo
 COPY ./odoo.conf /etc/odoo/
