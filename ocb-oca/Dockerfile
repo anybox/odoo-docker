@@ -8,7 +8,6 @@ RUN set -x; \
     # build deps for addons
     apt-get update \
     && apt-get install -y --no-install-recommends \
-    apt-get install \
         build-essential \
         libffi-dev \
         libjpeg-dev \
