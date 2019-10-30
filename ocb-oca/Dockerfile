@@ -58,7 +58,9 @@ print(' '.join(set(chain(*[\
     && chown -R odoo:nogroup . \
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+    && SUDO_FORCE_REMOVE=yes apt-get purge -y --auto-remove \
+        -o APT::AutoRemove::RecommendsImportant=false \
+        -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
         libffi-dev \
         libjpeg-dev \
