@@ -58,7 +58,7 @@ print(' '.join(set(chain(*[\
     ' fs ', ' fs==0.5.4 ').replace( \
     'stdnum', 'python-stdnum'))"`; \
         do pip install $m; done \
-    && pip install num2words phonenumbers simplejson \
+    && pip install oauthlib num2words phonenumbers simplejson \
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
     && SUDO_FORCE_REMOVE=yes apt-get purge -y --auto-remove \
