@@ -14,22 +14,6 @@ RUN set -x; \
         libsasl2-dev \
         python3-dev \
         sudo \
-    # detect, fix and install python deps of odoo addons (functional style)
-    && for m in `python -c "\
-from openerp.modules import module; \
-from itertools import chain; \
-print(' '.join(set(chain(*[\
-    module.load_information_from_description_file(m).get(\
-    'external_dependencies',{'python':[]})['python'] \
-    for m in module.get_modules()]))).replace( \
-    'ldap', 'python-ldap').replace( \
-    'dateutil', 'python-dateutil').replace( \
-    'lxml.html', 'lxml').replace( \
-    'usb.core', 'pyusb').replace( \
-    'jwt', 'python-jwt').replace( \
-    'stdnum', 'python-stdnum'))"`; \
-        do pip3 install --no-cache-dir $m; done \
-    && pip3 install --no-cache-dir num2words phonenumbers simplejson \
     ### DOWNLOAD ADDONS
     && cd /srv/extra-addons \
     && for repo in \
@@ -51,6 +35,22 @@ print(' '.join(set(chain(*[\
         && rm -rf ${repo#*/}-$VERSION \
     ; done \
     && chown -R odoo:nogroup . \
+    # detect, fix and install python deps of odoo addons (functional style)
+    && for m in `python -c "\
+from openerp.modules import module; \
+from itertools import chain; \
+print(' '.join(set(chain(*[\
+    module.load_information_from_description_file(m).get(\
+    'external_dependencies',{'python':[]})['python'] \
+    for m in module.get_modules()]))).replace( \
+    'ldap', 'python-ldap').replace( \
+    'dateutil', 'python-dateutil').replace( \
+    'lxml.html', 'lxml').replace( \
+    'usb.core', 'pyusb').replace( \
+    'jwt', 'python-jwt').replace( \
+    'stdnum', 'python-stdnum'))"`; \
+        do pip3 install --no-cache-dir $m; done \
+    && pip3 install --no-cache-dir num2words phonenumbers simplejson \
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
     && SUDO_FORCE_REMOVE=yes apt-get purge -y --auto-remove \
