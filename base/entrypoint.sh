@@ -23,6 +23,15 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
+# wait a little for DB
+timeout=30
+while ! psql -c 'select 1'
+    do echo 'waiting for DB'
+    sleep 0.5
+    timeout=$((timeout-1))
+    if [ $timeout -le 0 ]; then exit 1; fi
+done
+
 case "$1" in
     -- | odoo)
         shift
