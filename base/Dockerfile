@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 LABEL maintainer="Anybox"
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -26,8 +26,8 @@ RUN set -x; \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
     && sed -i 's/main/main contrib non-free/' /etc/apt/sources.list \
-    && echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > etc/apt/sources.list.d/pgdg.list \
+    && echo "deb http://deb.nodesource.com/node_8.x buster main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" > etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         adduser \
@@ -59,13 +59,13 @@ RUN set -x; \
         python3-dev \
         unzip \
         nodejs \
+        npm \
     && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
     && echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - \
     && dpkg --force-depends -i wkhtmltox.deb \
     && apt-get -y install -f --no-install-recommends \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
-    && python3 -m pip install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
