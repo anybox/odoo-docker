@@ -50,7 +50,7 @@ print(' '.join(set(chain(*[\
     'jwt', 'python-jwt').replace( \
     'stdnum', 'python-stdnum'))"`; \
         do pip3 install --no-cache-dir $m; done \
-    && pip3 install --no-cache-dir num2words phonenumbers simplejson \
+    && pip3 install --no-cache-dir phonenumbers simplejson \
     # cleanup
     && rm -rf .gitignore README.md .travis.yml *zip \
     && SUDO_FORCE_REMOVE=yes apt-get purge -y --auto-remove \
