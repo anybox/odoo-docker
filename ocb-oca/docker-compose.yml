@@ -2,12 +2,8 @@ version: '3.7'
 
 services:
   odoo:
-    image: registry.anybox.cloud/anybox/odoo-docker/ocb:12.0
-    build:
-        context: .
-        args:
-            GHUSER: OCA
-            GHREPO: OCB
+    image: registry.anybox.cloud/anybox/odoo-docker/ocb-oca:12.0
+    build: .
     depends_on:
       - db
     volumes:
@@ -16,7 +12,7 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072"
-    command: /srv/odoo/openerp-server -i base
+    command: /srv/odoo/openerp-server -i base,disable_odoo_online,backend_theme_v12,res_config_settings_enterprise_remove,website_odoo_debranding
 
   db:
     build: ../postgresql
