@@ -1,8 +1,8 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/odoo:12.0
+FROM registry.anybox.cloud/anybox/odoo-docker/odoo:13.0
 
 LABEL maintainer="Anybox"
 ARG GITHUB_TOKEN
-ENV VERSION 12.0
+ENV VERSION 13.0
 
 RUN set -x; \
     cd /srv/extra-addons \
