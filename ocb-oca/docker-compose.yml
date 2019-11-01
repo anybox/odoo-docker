@@ -12,7 +12,7 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072"
-    command: /srv/odoo/openerp-server -i base,disable_odoo_online,backend_theme_v12,res_config_settings_enterprise_remove,website_odoo_debranding
+    command: /srv/odoo/odoo-bin -i base,disable_odoo_online,backend_theme_v12,res_config_settings_enterprise_remove
 
   db:
     build: ../postgresql
