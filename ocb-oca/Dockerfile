@@ -19,6 +19,7 @@ RUN set -x; \
     && for repo in \
         OCA/contract \
         OCA/crm \
+        OCA/intrastat-extrastat \
         OCA/knowledge \
         OCA/l10n-france \
         OCA/partner-contact \
