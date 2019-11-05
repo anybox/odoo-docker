@@ -16,6 +16,8 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072"
+    environment:
+      WAIT_FOR_LOCAL_DB: "true"
     command: /srv/odoo/odoo-bin -i base
 
   db:
