@@ -17,6 +17,8 @@ RUN set -x; \
     ### DOWNLOAD ADDONS
     && cd /srv/extra-addons \
     && for repo in \
+        OCA/account-financial-reporting \
+        OCA/account-financial-tools \
         OCA/contract \
         OCA/crm \
         OCA/intrastat-extrastat \
