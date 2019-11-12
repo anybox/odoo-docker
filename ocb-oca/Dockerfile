@@ -22,6 +22,7 @@ RUN set -x; \
         OCA/intrastat-extrastat \
         OCA/knowledge \
         OCA/l10n-france \
+        OCA/margin-analysis \
         OCA/partner-contact \
         OCA/project \
         OCA/server-brand \
