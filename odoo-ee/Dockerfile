@@ -4,9 +4,12 @@ LABEL maintainer="Anybox"
 ARG GITHUB_TOKEN
 ENV VERSION 13.0
 
+USER root
+RUN pip3 install firebase_admin
+
+USER odoo
 RUN set -x; \
     cd /srv/extra-addons \
-    && pip3 install firebase_admin \
 #
     ### DOWNLOAD MODULES
     && curl -o addons.zip -sSL -u ${GITHUB_TOKEN}:x-oauth-basic \
