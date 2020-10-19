@@ -29,6 +29,7 @@ RUN set -x; \
         OCA/project \
         OCA/server-brand \
         OCA/server-tools \
+        OCA/timesheet \
         OCA/web \
         OCA/website \
         Openworx/backend_theme \
