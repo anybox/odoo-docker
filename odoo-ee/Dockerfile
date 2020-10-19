@@ -5,7 +5,8 @@ ARG GITHUB_TOKEN
 ENV VERSION 13.0
 
 USER root
-RUN apt-get install -y --no-install-recommends build-essential \
+RUN apt-get update \\
+    && apt-get install -y --no-install-recommends build-essential \
     && pip3 install firebase_admin \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
         build-essential \
