@@ -1,8 +1,8 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/odoo:13.0
+FROM registry.anybox.cloud/anybox/odoo-docker/odoo:14.0
 
 LABEL maintainer="Anybox"
 ARG GITHUB_TOKEN
-ENV VERSION 13.0
+ENV VERSION 14.0
 
 USER root
 RUN apt-get update \

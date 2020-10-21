@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   odoo:
-    image: registry.anybox.cloud/anybox/odoo-docker/ocb-oca:13.0
+    image: registry.anybox.cloud/anybox/odoo-docker/ocb-oca:14.0
     build: .
     depends_on:
       - db
@@ -14,7 +14,7 @@ services:
       - "8072:8072"
     environment:
       WAIT_FOR_LOCAL_DB: "true"
-    command: /srv/odoo/odoo-bin -i base,disable_odoo_online,backend_theme_v13,res_config_settings_enterprise_remove
+    command: /srv/odoo/odoo-bin -i base,disable_odoo_online,backend_theme_v14,res_config_settings_enterprise_remove
 
   db:
     build: ../postgresql

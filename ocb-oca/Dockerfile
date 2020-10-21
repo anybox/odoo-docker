@@ -1,7 +1,7 @@
-FROM registry.anybox.cloud/anybox/odoo-docker/ocb:13.0
+FROM registry.anybox.cloud/anybox/odoo-docker/ocb:14.0
 
 LABEL maintainer="Anybox"
-ENV VERSION 13.0
+ENV VERSION 14.0
 USER root
 
 RUN set -x; \
