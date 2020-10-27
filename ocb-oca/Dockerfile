@@ -28,6 +28,7 @@ RUN set -x; \
         OCA/partner-contact \
         OCA/project \
         OCA/reporting-engine \
+        OCA/server-backend \
         OCA/server-brand \
         OCA/server-tools \
         OCA/timesheet \
