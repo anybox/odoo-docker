@@ -21,15 +21,15 @@ build-base:
   stage: build1
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker pull $IMAGE/postgresql:11 || true
-    - docker build --cache-from $IMAGE/postgresql:11 -t $IMAGE/postgresql:11 postgresql
-    - docker push $IMAGE/postgresql:11
+    - docker pull $IMAGE/postgresql:10 || true
+    - docker build --cache-from $IMAGE/postgresql:10 -t $IMAGE/postgresql:10 postgresql
+    - docker push $IMAGE/postgresql:10
 
 build-oca:
   stage: build2
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker pull $IMAGE/postgresql:11
+    - docker pull $IMAGE/postgresql:10
     - docker pull $IMAGE/ocb:$COMMIT_TAG || true
     - docker pull $IMAGE/ocb-oca:$COMMIT_TAG || true
     - docker build --build-arg GHUSER=OCA --build-arg GHREPO=OCB --cache-from $IMAGE/ocb:$COMMIT_TAG -t $IMAGE/ocb:$COMMIT_TAG base
@@ -41,7 +41,7 @@ build-ee:
   stage: build2
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_ENV_CI_REGISTRY
-    - docker pull $IMAGE/postgresql:11
+    - docker pull $IMAGE/postgresql:10
     - docker pull $IMAGE/odoo:$COMMIT_TAG || true
     - docker pull $IMAGE/odoo-ee:$COMMIT_TAG || true
     - docker build --build-arg GHUSER=odoo --build-arg GHREPO=odoo --cache-from $IMAGE/odoo:$COMMIT_TAG -t $IMAGE/odoo:$COMMIT_TAG base
