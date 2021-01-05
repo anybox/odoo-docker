@@ -44,6 +44,7 @@ RUN set -x; \
         lsb-base \
         node-clean-css \
         node-less \
+        poppler-utils \
         python3-pip \
         postgresql-client \
         python3-pyldap \
