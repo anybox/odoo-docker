@@ -34,6 +34,7 @@ RUN set -x; \
         ca-certificates \
         cron \
         curl \
+        file \
         fonts-noto-cjk \
         # for geoip OCA modules:
         geoip-bin \
