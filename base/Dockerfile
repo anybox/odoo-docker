@@ -33,6 +33,7 @@ RUN set -x; \
         adduser \
         build-essential \
         ca-certificates \
+        cargo \
         cron \
         curl \
         file \
