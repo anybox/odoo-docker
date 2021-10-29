@@ -42,6 +42,7 @@ RUN set -x; \
         geoip-bin \
         # unavailable:
         #geoip-database-contrib \
+	libffi-dev \
         libldap2-dev \ 
         libpq-dev \
         libsasl2-dev \
