@@ -8,7 +8,7 @@ ARG GHREPO
 ENV VERSION 14.0
 # change this to trigger a debian update:
 # This should be probably be removed in the future if the images are force-rebuilt regularly
-ENV LASTBUILD 2020102101
+ENV LASTBUILD 2021102901
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
