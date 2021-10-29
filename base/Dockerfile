@@ -72,8 +72,9 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && pip3 install --no-cache-dir -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
-    && pip3 install pdfminer.six \
+    && pip3 install pdfminer.six cffi \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+	libffi-dev \
         build-essential \
         libldap2-dev \ 
         libpq-dev \
