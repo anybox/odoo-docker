@@ -72,7 +72,7 @@ RUN set -x; \
     && rm wkhtmltox.deb \
     && npm install --no-save -g rtlcss \
     && pip3 install --no-cache-dir -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
-    && pip3 install pdfminer.six==20211012 cffi==1.14.6 cryptography==3.4.8 setuptools-rust==0.12.1 \
+    && pip3 install pdfminer.six==20211012 cffi==1.13.2 cryptography==2.9.2 setuptools-rust==0.12.1 \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
 	libffi-dev \
         build-essential \
