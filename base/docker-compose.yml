@@ -25,6 +25,9 @@ services:
     volumes:
       - pgsocket:/var/run/postgresql
       - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
 volumes:
   odoodata:
   pgdata:

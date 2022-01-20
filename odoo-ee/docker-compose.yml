@@ -18,13 +18,16 @@ services:
       - "8072:8072"
     environment:
       WAIT_FOR_LOCAL_DB: "true"
-    command: /srv/odoo/odoo-bin -i base
+    command: /srv/odoo/odoo-bin
 
   db:
     build: ../postgresql
     volumes:
       - pgsocket:/var/run/postgresql
       - pgdata:/var/lib/postgresql/data
+    environment:
+       - POSTGRES_HOST_AUTH_METHOD=trust
+
 volumes:
   odoodata:
   pgdata:
