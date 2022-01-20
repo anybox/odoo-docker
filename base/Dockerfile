@@ -76,6 +76,15 @@ RUN set -x; \
     && npm install --no-save -g rtlcss \
     && pip3 install --no-cache-dir -r https://github.com/$GHUSER/$GHREPO/raw/$VERSION/requirements.txt \
     && pip3 install pdfminer.six==20211012 cffi==1.13.2 cryptography==2.9.2 setuptools-rust==0.12.1 \
+    && adduser --system --quiet --home /var/lib/odoo odoo
+
+RUN cd /srv \
+    && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \
+    && unzip -q odoo.zip \
+    && rm odoo.zip \
+    && mv $GHREPO-$VERSION odoo \
+    && pip3 install --no-cache-dir -e odoo/ \
+    && pip3 install --no-cache-dir -r odoo/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
 	libffi-dev \
         build-essential \
@@ -86,15 +95,6 @@ RUN set -x; \
         rustc \
         sudo \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && adduser --system --quiet --home /var/lib/odoo odoo
-
-RUN cd /srv \
-    && curl -o odoo.zip -sSL https://github.com/$GHUSER/$GHREPO/archive/$VERSION.zip \
-    && unzip -q odoo.zip \
-    && rm odoo.zip \
-    && mv $GHREPO-$VERSION odoo \
-    && pip3 install --no-cache-dir -e odoo/ \
-    && pip3 install --no-cache-dir -r odoo/requirements.txt
 
 
 COPY ./entrypoint.sh /
