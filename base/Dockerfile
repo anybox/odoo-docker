@@ -94,7 +94,7 @@ RUN cd /srv \
         python3-dev \
         rustc \
         sudo \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 COPY ./entrypoint.sh /
