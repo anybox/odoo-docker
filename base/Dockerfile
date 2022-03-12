@@ -86,7 +86,7 @@ RUN cd /srv \
     && pip3 install --no-cache-dir -e odoo/ \
     && pip3 install --no-cache-dir -r odoo/requirements.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
-	libffi-dev \
+        libffi-dev \
         build-essential \
         libldap2-dev \ 
         libpq-dev \
